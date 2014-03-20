@@ -26,7 +26,7 @@
 
     /**
      * Board 9x9
-     * @type {Array.<number>}
+     * @type {Number[][]}
      */
     var board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -57,7 +57,7 @@
 
         /**
          * Returns the string representation of the board
-         * @returns {string}
+         * @returns {String}
          */
         strBoard: function () {
             var str = '';
@@ -88,7 +88,7 @@
 
         /**
          * Returns the board matrix
-         * @returns {Array.<number>}
+         * @returns {Number[][]}
          */
         getBoard: function () {
             return board;
@@ -96,7 +96,7 @@
 
         /**
          * Sets the board
-         * @param {Array.<number>} _board
+         * @param {Number[][]} _board
          */
         setBoard: function (_board) {
             board = _board;
