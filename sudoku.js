@@ -68,9 +68,7 @@
                 for (var j = 0; j < NxN; j++) {
 
                     if (j === 0)  str += '|';
-
                     str += ' ' + board[i][j];
-
                     if ((j+1)%N === 0) str += ' |';
                 }
 
