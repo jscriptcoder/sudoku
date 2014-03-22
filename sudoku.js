@@ -82,13 +82,12 @@
             str = '\n+-----------------------+\n';
             for (var i = 0; i < NxN; i++) {
 
+                str += '|';
                 for (var j = 0; j < NxN; j++) {
 
-                    if (j === 0)  str += '|';
                     str += ' ' + board[i][j];
                     if ((j+1)%N === 0) str += ' |';
                 }
-
                 str += '\n';
 
                 if ((i+1)%N === 0 && (i+1) !== NxN) {
