@@ -21,12 +21,15 @@
 
 }(this, function () {
 
+    // Private members
+
     // We'll use them in the iterations
     var N = 3, NxN = N*N;
 
     /**
      * Board 9x9
      * @type {Number[][]}
+     * @private
      */
     var board = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -41,11 +44,23 @@
         [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
+    /**
+     * Determines whether or not the value is an array
+     * @param {Any} value
+     * @returns {Boolean}
+     * @private
+     */
+    function isArray(value) {
+        return Object.prototype.toString.call(value) === '[object Array]';
+    }
+
     // Public API
     return {
 
         /**
          * Clears the board, setting all its cells to 0
+         * @memberof Sudoku
+         * @public
          */
         clear: function () {
             for (var i = 0; i < NxN; i++) {
@@ -58,9 +73,11 @@
         /**
          * Returns the string representation of the board
          * @returns {String}
+         * @memberof Sudoku
+         * @public
          */
-        strBoard: function () {
-            var str = '';
+        toString: function () {
+            var str;
 
             str = '\n+-----------------------+\n';
             for (var i = 0; i < NxN; i++) {
@@ -87,6 +104,8 @@
         /**
          * Returns the board matrix
          * @returns {Number[][]}
+         * @memberof Sudoku
+         * @public
          */
         getBoard: function () {
             return board;
@@ -95,18 +114,47 @@
         /**
          * Sets the board
          * @param {Number[][]} _board
+         * @throws {Error} Wrong board
+         * @memberof Sudoku
+         * @returns {Number[][]}
+         * @public
          */
         setBoard: function (_board) {
-            board = _board;
+            if (isArray(_board) && _board.length === 9) {
+                board = _board;
+            } else {
+                throw Error('Wrong board');
+            }
         },
 
         /**
          * Displays the board in the console
+         * @memberof Sudoku
+         * @public
          */
         display: function () {
-            console.log(this.strBoard());
-        }
+            console.log(this.toString());
+        },
 
-    };
+        /**
+         * Sets a value to the cell [i, j]
+         * @param {Number} val
+         * @param {Number} i
+         * @param {Number} j
+         * @memberof Sudoku
+         * @public
+         */
+        setValue: function (val, i, j) {
+            board[i][j] = val;
+        },
+
+        /**
+         * Exposes isArray method to be used by submodules
+         * @memberof Sudoku
+         * @protected
+         */
+        __isArray__: isArray
+
+    }
 
 }));
