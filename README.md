@@ -1,4 +1,7 @@
 # Sudoku
-Just having fun with this game and its algorithms ;-)
+Just having some fun with this game and its backtracking algorithm
 
-Work in progress...
+Yet to do: Sudoku Generator
+
+## API
+

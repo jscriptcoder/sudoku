@@ -24,114 +24,91 @@
 
     // Private members
 
-    // We'll use them in the iterations
-    var N = 3, NxN = N*N;
-
     /**
-     * Board 9x9
-     * @type {Number[][]}
-     * @private
+     * @constant
+     * @type {Number}
+     * @default 3
      */
-    var board = Sudoku.getBoard();
+    var N = 3;
 
     /**
-     * Determines whether or not the value is an array
-     * @param {Any} value
-     * @returns {Boolean}
-     * @private
-     */
-    var isArray = Sudoku.__isArray__;
-
-    /**
-     * Constraint 1: determines whether or not the region in [i, j] position is ok
+     * Constraint 1: determines whether or not the number is in the region [i, j]
+     * @param {Number} num
      * @param {Number} i
      * @param {Number} j
      * @returns {Boolean}
      * @private
      */
-    function isRegionOK(i, j) {
-        var region = [],
-            val;
+    function inRegion(num, i, j) {
 
         // First we need to move the coordinates to the origin of the region
-        // where we can star looping through
+        // where we can start looping through
         i = (Math.floor(i / N) * N);
         j = (Math.floor(j / N) * N);
 
-        for (var ii = i; ii < (ii+N); ii++) {
-            for (var jj = j; jj < (jj+N); jj++) {
-                val = board[ii][jj];
-                if (val !== 0 && region.indexOf(val) === -1) { // is it already in the region?
-                    region.push(val); // if not we added it to the list
-                } else {
-                    return false; // it's already in the region, not good
+        for (var ii = i; ii < (i+N); ii++) {
+            for (var jj = j; jj < (j+N); jj++) {
+                if (num === Sudoku.getValue(ii, jj)) {
+                    return true;
                 }
             }
         }
 
-        return true;
+        return false;
 
     }
 
     /**
-     * Constraint 2: determines whether or not the row in [i, 0..8] position is ok
+     * Constraint 2: determines whether or not the number is in the row [i, 0..8]
+     * @param {Number} num
      * @param {Number} i
      * @returns {Boolean}
      * @private
      */
-    function isRowOK(i) {
-        var row = [],
-            val;
+    function inRow(num, i) {
 
         for (var jj = 0; jj < 9; jj++) {
-            val = board[i][jj];
-            if (val !== 0 && row.indexOf(val) === -1) { // is it already in the row?
-                row.push(val); // if not we added it to the list
-            } else {
-                return false; // it's already in the row, :-(
+            if (num === Sudoku.getValue(i, jj)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
-     * Constraint 3: determines whether or not the column in [0..8, j] position is ok
+     * Constraint 3: determines whether or not the number is in column [0..8, j]
+     * @param {Number} num
      * @param {Number} j
      * @returns {Boolean}
      * @private
      */
-    function isColumnOK(j) {
-        var column = [],
-            val;
+    function inCollumn(num, j) {
 
         for (var ii = 0; ii < 9; ii++) {
-            val = board[ii][j];
-            if (val !== 0 && column.indexOf(val) === -1) { // is it already in the column?
-                column.push(val); // if not we added it to the list
-            } else {
-                return false; // it's already in the column, :-(
+            if (num === Sudoku.getValue(ii, j)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
      * Moves the coordinates to the next cell to inspect
-     * @param {Number[]} ij
-     * @returns {Number}
+     * @param {Number[]} cell
+     * @returns {Number[]}
      * @private
      */
-    function nextCell(ij) {
-        var i = ij[0],
-            j = ij[1];
+    function nextCell(cell) {
+        var i = cell[0],
+            j = cell[1];
 
-        if (j < 9) {
+        if (j < 8) {
             return [i, ++j];
         } else {
             j = 0;
-            if (i < 9) {
+            if (i < 8) {
                 return [++i, j];
             } else {
                 return null;
@@ -140,31 +117,69 @@
     }
 
     /**
-     * Recursive function that'll find a solution
+     * Determines whether or not we're good with that number in cell [i, j]
+     * @param {Number} numm
+     * @param {Number} i
+     * @param {Number} j
+     * @returns {Boolean}
+     * @private
+     */
+    function isGood(num, i, j) {
+
+        if (!inRegion(num, i, j) && // fulfils constraint 1?
+            !inRow(num, i) && // fulfils constraint 2?
+            !inCollumn(num, j)) { // fulfils constraint 3?
+
+            Sudoku.setValue(num, i, j);
+
+            if (findSolution(nextCell([i, j]))) {
+                return true;
+            } else {
+                // There is no solution with this value. Let's empty it
+                // and try again with the next number
+                Sudoku.emptyValue(i, j);
+                return false;
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Recursive function that will find a solution
      * @param {Number[]} cell
-     * @returns {Number}
+     * @returns {Boolean}
      * @private
      */
     function findSolution(cell) {
-        var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9],
-            i = cell[0],
-            j = cell[1],
-            val = board[i][j];
 
-        if (!val) {
-            for (var n = 0; n < 9; n++) {
-                board[i][j] = numbers[n];
-                if (isRegionOK(i, j) && isRowOK(i) && isColumnOK(j)) {
-                    break;
-                }
-            }
-        }
-
-        cell = nextCell([i, j]);
         if (cell) {
-            return findSolution(cell);
+
+            var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                found = false,
+                i = cell[0],
+                j = cell[1];
+
+            if (Sudoku.isValueEmpty(i, j)) {
+
+                for (var n = 0; n < 9; n++) {
+                    found = isGood(numbers[n], i, j);
+                    if (found) break;
+                }
+
+                return found;
+
+            } else {
+                // This cells is already populated. Move to the next one
+                return findSolution(nextCell([i, j]));
+            }
+
         } else {
-            return board;
+            // It's over. We've iterated over all the cells,
+            // and we found a final solution
+            return true;
         }
 
     }
@@ -174,16 +189,21 @@
 
         /**
          * Solves the sudoku using backtracking
-         * @param {Number[][]} [board]
+         * @param {Number[][]} [_board]
+         * @memberof Sudoku.Resolver
          * @private
          */
         solve: function (_board) {
-            if (_board) board = Sudoku.setBoard(_board);
+            if (_board) Sudoku.set(_board);
+
+            console.log('Initial board:');
+            Sudoku.display();
 
             // Let's find a solution starting from [0, 0]
             findSolution([0, 0]);
 
-            console.log(board);
+            console.log('Solution:');
+            Sudoku.display();
         }
     };
 

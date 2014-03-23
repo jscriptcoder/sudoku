@@ -23,8 +23,27 @@
 
     // Private members
 
-    // We'll use them in the iterations
-    var N = 3, NxN = N*N;
+    var
+        /**
+         * @constant
+         * @type {Number}
+         * @default 3
+         */
+        N = 3,
+
+        /**
+         * @constant
+         * @type {Number}
+         * @default 3*3
+         */
+        NxN = N* N,
+
+        /**
+         * @constant
+         * @type {Number}
+         * @default 0
+         */
+        EMPTY = 0;
 
     /**
      * Board 9x9
@@ -32,7 +51,6 @@
      * @private
      */
     var board = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -65,7 +83,7 @@
         clear: function () {
             for (var i = 0; i < NxN; i++) {
                 for (var j = 0; j < NxN; j++) {
-                    board[i][j] = 0;
+                    board[i][j] = EMPTY;
                 }
             }
         },
@@ -106,7 +124,7 @@
          * @memberof Sudoku
          * @public
          */
-        getBoard: function () {
+        get: function () {
             return board;
         },
 
@@ -118,7 +136,7 @@
          * @returns {Number[][]}
          * @public
          */
-        setBoard: function (_board) {
+        set: function (_board) {
             if (isArray(_board) && _board.length === 9) {
                 board = _board;
             } else {
@@ -127,7 +145,7 @@
         },
 
         /**
-         * Displays the board in the console
+         * Displays the string representation of the board in the console
          * @memberof Sudoku
          * @public
          */
@@ -136,7 +154,19 @@
         },
 
         /**
-         * Sets a value to the cell [i, j]
+         * Gets the value from the cell [i, j]
+         * @param {Number} i
+         * @param {Number} j
+         * @return {Number}
+         * @memberof Sudoku
+         * @public
+         */
+        getValue: function (i, j) {
+            return board[i][j];
+        },
+
+        /**
+         * Sets a value of the cell [i, j]
          * @param {Number} val
          * @param {Number} i
          * @param {Number} j
@@ -145,6 +175,29 @@
          */
         setValue: function (val, i, j) {
             board[i][j] = val;
+        },
+
+        /**
+         * Indicates whether the cell is empty
+         * @param {Number} i
+         * @param {Number} j
+         * @return {Boolean}
+         * @memberof Sudoku
+         * @public
+         */
+        isValueEmpty: function (i, j) {
+            return !board[i][j];
+        },
+
+        /**
+         * Empties the cell [i, j]
+         * @param {Number} i
+         * @param {Number} j
+         * @memberof Sudoku
+         * @public
+         */
+        emptyValue: function (i, j) {
+            this.setValue(EMPTY, i, j);
         },
 
         /**

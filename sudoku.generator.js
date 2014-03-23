@@ -27,21 +27,6 @@
     // We'll use them in the iterations
     var N = 3, NxN = N*N;
 
-    /**
-     * Board 9x9
-     * @type {Number[][]}
-     * @private
-     */
-    var board = Sudoku.getBoard();
-
-    /**
-     * Determines whether or not the value is an array
-     * @param {Any} value
-     * @returns {Boolean}
-     * @private
-     */
-    var isArray = Sudoku.__isArray__;
-
     // Public API
     return {
 
