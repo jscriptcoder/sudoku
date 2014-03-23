@@ -31,7 +31,7 @@ Sudoku.toString(void): String
 
 _Syntax:_
 ```javascript
-Sudoku.get(void): Number[][]>
+Sudoku.get(void): Number[][]
 ```
 ---
 
