@@ -133,7 +133,6 @@
          * @param {Number[][]} _board
          * @throws {Error} Wrong board
          * @memberof Sudoku
-         * @returns {Number[][]}
          * @public
          */
         set: function (_board) {
