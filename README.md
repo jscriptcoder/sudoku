@@ -45,6 +45,8 @@ Sudoku.get(void): Number[][]
 
 > Sets the board.
 
+<img src="resources/Sudoku_set.png" alt="Sudoku.set([...])" />
+
 _Syntax:_
 ```javascript
 Sudoku.set(_board: Number[][]): void
