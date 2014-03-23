@@ -23,6 +23,8 @@ Sudoku.clear(void): void
 
 > Returns the string representation of the board.
 
+<img src="resources/Sudoku_toString.png" alt="Sudoku.toString()" />
+
 _Syntax:_
 ```javascript
 Sudoku.toString(void): String
@@ -52,6 +54,8 @@ Sudoku.set(_board: Number[][]): void
 **display**
 
 > Displays the string representation of the board in the console.
+
+<img src="resources/Sudoku_display.png" alt="Sudoku.display()" />
 
 _Syntax:_
 ```javascript
@@ -105,9 +109,11 @@ Sudoku.emptyValue(i: Number, j: Number): void
 
 > Solves the sudoku using backtracking. This method will log in the console the initial board and the solution.
 
+<img src="resources/Sudoku_Resolver_solve.png" alt="Sudoku.Resolver.solve()" />
+
 _Syntax:_
 ```javascript
-Sudoku.solve(_board?: Number[][]): void
+Sudoku.Resolver.solve(_board?: Number[][]): void
 ```
 ---
 
