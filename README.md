@@ -1,10 +1,11 @@
 # Sudoku
 Just having some fun with this game and its backtracking algorithm.
 
-Yet to do:
-1. Improvements in Sudoku.Resolver
+TO-DO:
+
+1. Improvements in Sudoku.Resolver.
 2. Implement Sudoku.Generator.
-3. Implement Sudoku-cli for Nodejs command line
+3. Implement Sudoku-cli for Nodejs command line.
 
 ## Sudoku API
 
