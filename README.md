@@ -1,7 +1,10 @@
 # Sudoku
-Just having some fun with this game and its backtracking algorithm
+Just having some fun with this game and its backtracking algorithm.
 
-Yet to do: Sudoku Generator
+Yet to do:
+1. Improvements in Sudoku.Resolver
+2. Implement Sudoku.Generator.
+3. Implement Sudoku-cli for Nodejs command line
 
 ## Sudoku API
 
@@ -106,3 +109,7 @@ _Syntax:_
 Sudoku.solve(_board?: Number[][]): void
 ```
 ---
+
+## Sudoku.Generator API
+
+TO-DO
