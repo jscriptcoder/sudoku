@@ -31,7 +31,7 @@ Sudoku.toString(void): String
 
 _Syntax:_
 ```javascript
-Sudoku.get(void): Array<Array<Number>>
+Sudoku.get(void): Number[][]>
 ```
 ---
 
@@ -41,7 +41,7 @@ Sudoku.get(void): Array<Array<Number>>
 
 _Syntax:_
 ```javascript
-Sudoku.set(_board: Array<Array<Number>>): void
+Sudoku.set(_board: Number[][]): void
 ```
 ---
 
@@ -103,6 +103,6 @@ Sudoku.emptyValue(i: Number, j: Number): void
 
 _Syntax:_
 ```javascript
-Sudoku.solve(_board?: Array<Array<Number>>): void
+Sudoku.solve(_board?: Number[][]): void
 ```
 ---
