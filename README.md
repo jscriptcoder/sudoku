@@ -91,7 +91,7 @@ Sudoku.setValue(val: Number, i: Number, j: Number): void
 
 _Syntax:_
 ```javascript
-Sudoku.isValueEmpty(i: Number, j: Number): Boolean
+Sudoku.isCellEmpty(i: Number, j: Number): Boolean
 ```
 ---
 
@@ -101,7 +101,7 @@ Sudoku.isValueEmpty(i: Number, j: Number): Boolean
 
 _Syntax:_
 ```javascript
-Sudoku.emptyValue(i: Number, j: Number): void
+Sudoku.emptyCell(i: Number, j: Number): void
 ```
 ---
 
