@@ -184,7 +184,7 @@
          * @memberof Sudoku
          * @public
          */
-        isValueEmpty: function (i, j) {
+        isCellEmpty: function (i, j) {
             return !board[i][j];
         },
 
@@ -195,7 +195,7 @@
          * @memberof Sudoku
          * @public
          */
-        emptyValue: function (i, j) {
+        emptyCell: function (i, j) {
             this.setValue(EMPTY, i, j);
         },
 

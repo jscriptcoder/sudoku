@@ -137,7 +137,7 @@
             } else {
                 // There is no solution with this value. Let's empty it
                 // and try again with the next number
-                Sudoku.emptyValue(i, j);
+                Sudoku.emptyCell(i, j);
                 return false;
             }
 
@@ -162,7 +162,7 @@
                 i = cell[0],
                 j = cell[1];
 
-            if (Sudoku.isValueEmpty(i, j)) {
+            if (Sudoku.isCellEmpty(i, j)) {
 
                 for (var n = 0; n < 9; n++) {
                     found = isGood(numbers[n], i, j);

@@ -85,7 +85,7 @@ Sudoku.setValue(val: Number, i: Number, j: Number): void
 ```
 ---
 
-**isValueEmpty**
+**isCellEmpty**
 
 > Indicates whether the cell is empty.
 
@@ -95,7 +95,7 @@ Sudoku.isValueEmpty(i: Number, j: Number): Boolean
 ```
 ---
 
-**emptyValue**
+**emptyCell**
 
 > Empties the cell [i, j].
 
