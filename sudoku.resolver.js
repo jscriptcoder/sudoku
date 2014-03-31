@@ -26,7 +26,7 @@
 
     /**
      * @constant
-     * @type {Number}
+     * @type Number
      * @default 3
      */
     var N = 3;
@@ -169,7 +169,7 @@
                     if (found) break;
                 }
 
-                return found;
+                return fou nd;
 
             } else {
                 // This cells is already populated. Move to the next one

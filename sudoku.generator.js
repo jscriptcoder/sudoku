@@ -29,7 +29,16 @@
 
     // Public API
     return {
-
+        
+        /**
+         * Creates a new Sudoku board based on a seed if provided
+         * @param {String} [seed]
+         * @public
+         */
+        create: function (seed) {
+            
+        }
+        
     };
 
 }));

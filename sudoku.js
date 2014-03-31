@@ -72,6 +72,69 @@
         return Object.prototype.toString.call(value) === '[object Array]';
     }
 
+    /**
+     * Looks for repeated numbers in all the rows and columns, and if there aren't, returns true
+     * @returns {Boolean}
+     * @private
+     */
+    function isLinesOk() {
+        var row, 
+            column, 
+            numRow, 
+            numColumn, 
+            inRow, 
+            inColumn, 
+            i = NxN, 
+            j = NxN;
+
+        while (i--) {
+
+            row = [], column = [];
+
+            while (j--) { 
+
+                numRow = board[i][j];
+                numColumn = board[j][i];
+                inRow = (numRow !== EMPTY && row.indexOf(numRow) > -1);
+                inColumn = (numColumn !== EMPTY && column.indexOf(numColumn) > -1);
+
+                if (inRow || inColumn) {
+                    return false;
+                } else {
+                    row.push(numRow);
+                    column.push(numColumn);
+                }
+                
+            }
+            
+        }
+
+        // no repeated numbers found. It's all ok ;-)
+        return true;
+    }
+    
+    function isRegionsOk() {
+        var region, 
+            RxN, 
+            ri = NxN, 
+            rj = NxN;
+        
+        //TO-DO
+        /*
+        while (ri -= N) {
+            while (rj -= N) {
+                
+                for (var i = ri; i < (ri+N); i++) {
+                    for (var j = rj; j < (rj+N); j++) {
+                        board[i][j] = EMPTY;
+                    }
+                }
+                
+            }
+        }
+        */
+    }
+    
     // Public API
     return {
 
@@ -198,6 +261,16 @@
         emptyCell: function (i, j) {
             this.setValue(EMPTY, i, j);
         },
+        
+        /**
+         * Determines whether or not the board is correct
+         * @returns {Boolean}
+         * @memberof Sudoku
+         * @public
+         */
+        isCorrect: function () {
+            //return isRowsOk() && isColumnsOk() && isRegionsOk();
+        }
 
         /**
          * Exposes isArray method to be used by submodules
