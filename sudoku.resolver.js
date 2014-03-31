@@ -83,7 +83,7 @@
      * @returns {Boolean}
      * @private
      */
-    function inCollumn(num, j) {
+    function inColumn(num, j) {
 
         for (var ii = 0; ii < 9; ii++) {
             if (num === Sudoku.getValue(ii, j)) {
@@ -128,7 +128,7 @@
 
         if (!inRegion(num, i, j) && // fulfils constraint 1?
             !inRow(num, i) && // fulfils constraint 2?
-            !inCollumn(num, j)) { // fulfils constraint 3?
+            !inColumn(num, j)) { // fulfils constraint 3?
 
             Sudoku.setValue(num, i, j);
 
@@ -157,7 +157,7 @@
 
         if (cell) {
 
-            var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9], 
                 found = false,
                 i = cell[0],
                 j = cell[1];
@@ -194,16 +194,29 @@
          * @private
          */
         solve: function (_board) {
+            var start, end, isSolved
+            
             if (_board) Sudoku.set(_board);
 
             console.log('Initial board:');
             Sudoku.display();
 
+            start = (new Date()).getTime();
+            
             // Let's find a solution starting from [0, 0]
-            findSolution([0, 0]);
+            isSolved = findSolution([0, 0]);
 
-            console.log('Solution:');
-            Sudoku.display();
+            end = (new Date()).getTime();
+            
+            if (isSolved) {
+                console.log('Solution:');
+                Sudoku.display();    
+            } else {
+                console.log('No solution found for this board :-(');
+            }
+            
+            
+            console.log('Execution time (ms):', end - start);
         }
     };
 
