@@ -73,66 +73,78 @@
     }
 
     /**
-     * Looks for repeated numbers in all the rows and columns, and if there aren't, returns true
+     * Looks for repeated numbers in all the rows and columns, and if there aren't, returns true.
+     * By checking both rows and columns in the same loop we improve just a bit the performance
+     * @param {Number[][]} [_board]
      * @returns {Boolean}
      * @private
      */
-    function isLinesOk() {
-        var row, 
-            column, 
-            numRow, 
-            numColumn, 
-            inRow, 
-            inColumn, 
-            i = NxN, 
-            j = NxN;
+    function isLinesOk(_board) {
+        var _board = _board || board, 
+            row, column, 
+            numRow, numColumn, 
+            inRow, inColumn, 
+            i, j;
 
+        i = NxN;
         while (i--) {
 
             row = [], column = [];
 
+            j = NxN;
             while (j--) { 
 
-                numRow = board[i][j];
-                numColumn = board[j][i];
-                inRow = (numRow !== EMPTY && row.indexOf(numRow) > -1);
-                inColumn = (numColumn !== EMPTY && column.indexOf(numColumn) > -1);
+                numRow = _board[i][j], numColumn = _board[j][i];
+                
+                inRow = row.indexOf(numRow) > -1;
+                inColumn = column.indexOf(numColumn) > -1;
 
                 if (inRow || inColumn) {
                     return false;
                 } else {
-                    row.push(numRow);
-                    column.push(numColumn);
+                    if (numRow !== EMPTY) row.push(numRow);
+                    if (numColumn !== EMPTY) column.push(numColumn);
                 }
                 
             }
             
         }
 
-        // no repeated numbers found. It's all ok ;-)
+        // no repeated numbers found
         return true;
     }
     
-    function isRegionsOk() {
-        var region, 
-            RxN, 
-            ri = NxN, 
-            rj = NxN;
+    /**
+     * Goes through all the regions looking for repeated numbers, and returning true if not found
+     * @param {Number[][]} [_board]
+     * @returns {Boolean}
+     * @private
+     */
+    function isRegionsOk(_board) {
+        var region, num, _board = _board || board;
         
-        //TO-DO
-        /*
-        while (ri -= N) {
-            while (rj -= N) {
+        for (var ri = 0; ri < NxN; ri += N) {
+            for (var rj = 0; rj < NxN; rj += N) {
+                
+                region = [];
                 
                 for (var i = ri; i < (ri+N); i++) {
                     for (var j = rj; j < (rj+N); j++) {
-                        board[i][j] = EMPTY;
+                        num = _board[i][j];
+                        if (region.indexOf(num) > -1) {
+                            return false;
+                        } else {
+                            if (num !== EMPTY) region.push(num);
+                        }
                     }
                 }
                 
             }
         }
-        */
+        
+        // no repeated numbers found in the region
+        return true;
+        
     }
     
     // Public API
@@ -182,6 +194,24 @@
         },
 
         /**
+         * Determines whether or not the board is correct
+         * @param {Number[][]} [_board]
+         * @returns {Boolean}
+         * @memberof Sudoku
+         * @public
+         */
+        isCorrect: function (_board) {
+            _board = _board || board;
+            
+            return isArray(_board) && 
+                _board.length === NxN && 
+                _board[0].length === NxN && 
+                _board[NxN-1].length === NxN && 
+                isLinesOk(_board) && 
+                isRegionsOk(_board);
+        },
+        
+        /**
          * Returns the board matrix
          * @returns {Number[][]}
          * @memberof Sudoku
@@ -199,7 +229,7 @@
          * @public
          */
         set: function (_board) {
-            if (isArray(_board) && _board.length === 9) {
+            if (this.isCorrect(_board)) {
                 board = _board;
             } else {
                 throw Error('Wrong board');
@@ -261,16 +291,6 @@
         emptyCell: function (i, j) {
             this.setValue(EMPTY, i, j);
         },
-        
-        /**
-         * Determines whether or not the board is correct
-         * @returns {Boolean}
-         * @memberof Sudoku
-         * @public
-         */
-        isCorrect: function () {
-            //return isRowsOk() && isColumnsOk() && isRegionsOk();
-        }
 
         /**
          * Exposes isArray method to be used by submodules

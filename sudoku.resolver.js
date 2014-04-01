@@ -169,7 +169,7 @@
                     if (found) break;
                 }
 
-                return fou nd;
+                return found;
 
             } else {
                 // This cells is already populated. Move to the next one
@@ -197,7 +197,7 @@
             var start, end, isSolved
             
             if (_board) Sudoku.set(_board);
-
+            
             console.log('Initial board:');
             Sudoku.display();
 

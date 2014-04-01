@@ -33,6 +33,7 @@
         /**
          * Creates a new Sudoku board based on a seed if provided
          * @param {String} [seed]
+         * @memberof Sudoku.Generator
          * @public
          */
         create: function (seed) {
