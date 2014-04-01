@@ -31,6 +31,16 @@ Sudoku.toString(void): String
 ```
 ---
 
+**isCorrect**
+
+> Determines whether or not the board is correct.
+
+_Syntax:_
+```javascript
+Sudoku.isCorrect(_board?: Number[][]): Boolean
+```
+---
+
 **get**
 
 > Returns the board matrix.

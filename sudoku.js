@@ -130,7 +130,9 @@
                 
                 for (var i = ri; i < (ri+N); i++) {
                     for (var j = rj; j < (rj+N); j++) {
+                        
                         num = _board[i][j];
+                        
                         if (region.indexOf(num) > -1) {
                             return false;
                         } else {
